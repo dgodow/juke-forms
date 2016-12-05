@@ -18,17 +18,17 @@ export default class FilterableArtists extends React.Component {
   }
 
   filterArtists(inputValue) {
-    const artists = this.props.artists.filter((artist) => {
-      return artist.match(`${inputValue}`);
+    return this.props.artists.filter((artist) => {
+      return artist.name.match(`${inputValue}`);
     })
   }
 
   render () {
-
+    const filteredArtists = this.filterArtists(this.state.inputValue)
     return (
       <div>
         <FilterInput manageInput={this.manageInput} />
-        <Artists artists={this.filterArtists(this.inputValue)} />
+        <Artists artists={filteredArtists} />
       </div>
     )
   }
