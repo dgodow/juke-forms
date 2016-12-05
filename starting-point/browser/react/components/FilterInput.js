@@ -6,7 +6,7 @@ const FilterInput = (props) => {
       <input
         className="form-control"
         placeholder="Enter artist name"
-        onChange={this.props.manageInput}
+        onChange={props.manageInput}
       />
     </form>
   );

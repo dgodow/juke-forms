@@ -7,6 +7,7 @@ import Album from './components/Album';
 import Artists from './components/Artists';
 import Artist from './components/Artist';
 import Songs from './components/Songs';
+import FilterableArtists from './containers/FilterableArtistsContainer';
 
 ReactDOM.render(
   <Router history={hashHistory}>

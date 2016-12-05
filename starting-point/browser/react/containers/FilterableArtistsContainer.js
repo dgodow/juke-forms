@@ -1,6 +1,6 @@
 import React from 'react';
-import FilterInput from './filterinput';
-import Artists from './artists';
+import FilterInput from '../components/filterinput';
+import Artists from '../components/artists';
 
 export default class FilterableArtists extends React.Component {
   constructor (props) {
@@ -10,20 +10,26 @@ export default class FilterableArtists extends React.Component {
     };
 
     this.manageInput = this.manageInput.bind(this);
+    this.filterArtists = this.filterArtists.bind(this);
   }
 
-  manageInput(inputValue) {
-    this.setState(inputValue);
+  manageInput(event) {
+    this.setState({inputValue: event.target.value});
+  }
+
+  filterArtists(inputValue) {
+    const artists = this.props.artists.filter((artist) => {
+      return artist.match(`${inputValue}`);
+    })
   }
 
   render () {
-    const artists = this.state.inputValue;
 
     return (
-      <FilterInput manageInput={this.manageInput} />
-      artists.map((artist) => {
-        return <Artists />
-      })
+      <div>
+        <FilterInput manageInput={this.manageInput} />
+        <Artists artists={this.filterArtists(this.inputValue)} />
+      </div>
     )
   }
 
