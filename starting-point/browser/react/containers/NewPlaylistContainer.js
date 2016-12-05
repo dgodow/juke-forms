@@ -46,24 +46,18 @@ export default class NewPlaylistContainer extends React.Component {
   submitInput (event) {
     event.preventDefault();
     this.setState({inputValue: ''});
-    axios.post('/api/playlists/', 
-      {
-        name: this.state.inputValue
-      })
-      .then(res => res.data)
-      .then(result => {
-        console.log(result) // response json from the server!
-      });
+    this.props.addPlaylist(this.state.inputValue)
+    .then(_ => { this.setState() )
   }
 
   render () {
     return (
       <div>
-        <NewPlaylist 
+        <NewPlaylist
           inputValue={this.state.inputValue}
-          manageInput={this.manageInput} 
-          submitInput={this.submitInput} 
-          buttonDisabled={this.buttonDisabled()} 
+          manageInput={this.manageInput}
+          submitInput={this.submitInput}
+          buttonDisabled={this.buttonDisabled()}
           noInput={this.state.noInput}
         />
       </div>
