@@ -47,7 +47,6 @@ export default class NewPlaylistContainer extends React.Component {
     event.preventDefault();
     this.setState({inputValue: ''});
     this.props.addPlaylist(this.state.inputValue)
-    .then(_ => { this.setState() )
   }
 
   render () {

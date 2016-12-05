@@ -25,6 +25,7 @@ export default class AppContainer extends Component {
     this.selectAlbum = this.selectAlbum.bind(this);
     this.selectArtist = this.selectArtist.bind(this);
     this.addPlaylist = this.addPlaylist.bind(this);
+    this.selectPlaylist = this.selectPlaylist.bind(this);
   }
 
   componentDidMount () {
@@ -43,6 +44,13 @@ export default class AppContainer extends Component {
     AUDIO.addEventListener('timeupdate', () =>
       this.setProgress(AUDIO.currentTime / AUDIO.duration));
   }
+
+  // componentWillReceiveProps (newestPlaylist) {
+  //   if (this.props.params.playlistId && this.props.params.playlistId !== ) {
+
+  //     this.setState({playlists: [...this.state.playlists, newestPlaylist]});
+  //   }
+  // }
 
   onLoad (albums, artists, playlists) {
     this.setState({
@@ -126,9 +134,20 @@ export default class AppContainer extends Component {
       })
       .then(res => res.data)
       .then(result => {
-        console.log(result)
+        this.setState({playlists: [...this.state.playlists, result]})
         return result; // response json from the server!
       })
+  }
+
+  selectPlaylist (playlistId) {
+    axios.get(`/api/playlist/${playlistId}`)
+    .then(res => res.data)
+    .then(result => {
+      result.map((playlist) => {
+        playlist.songs = playlist.songs.map(convertSong); 
+      })
+      this.setState({selectedPlaylist: result});
+    })
   }
 
   onLoadArtist (artist, albums, songs) {
@@ -147,7 +166,8 @@ export default class AppContainer extends Component {
       toggle: this.toggle,
       selectAlbum: this.selectAlbum,
       selectArtist: this.selectArtist,
-      addPlaylist: this.addPlaylist
+      addPlaylist: this.addPlaylist,
+      selectPlaylist: this.selectPlaylist
     });
 
     return (

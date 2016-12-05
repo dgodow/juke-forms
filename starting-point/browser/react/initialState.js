@@ -2,6 +2,7 @@ const initialState = {
   albums: [],
   artists: [],
   playlists: [],
+  selectedPlaylist: {songs: []},
   selectedAlbum: {},
   selectedArtist: {},
   currentSong: {},
