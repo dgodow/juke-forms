@@ -4,10 +4,24 @@ import Songs from './Songs';
 export default class Playlist extends React.Component {
   constructor(props) {
     super(props)
+
   }
 
-  render() {
+componentDidMount () {
+  const playlistId = this.props.routeParams.playlistId;
+  this.props.selectPlaylist(playlistId);
+}
+
+componentWillReceiveProps(){
+  const playlistId = this.props.routeParams.playlistId;
+  if (playlistId !== this.props.selectPlaylist.id) {
+    this.props.selectPlaylist(playlistId)
+  }
+}
+
+render() {
     const playlist = this.props.selectedPlaylist;
+    console.log(playlist)
 
     return (
       <div>
